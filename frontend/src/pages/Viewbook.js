@@ -31,14 +31,14 @@ const Viewbook = () => {
       </Row>
       <Row className="mt-4 justify-content-center">
         <Col md={6} className="text-center">
-          <Image src={imagePath} alt={data.title} fluid style={{ height: 'auto', width: '100%' }} />
+          <Image src={imagePath} alt={data.title} fluid style={{ height: '100', width: '100%' }} />
         </Col>
       </Row>
       <Row className="mt-4 justify-content-center">
         <Col md={6} className="text-center">
           <h2>{data.title}</h2>
           <p><strong>Description:</strong> {data.desc}</p>
-          <p><strong>Price:</strong> ${data.price}</p>
+          <p><strong>Price:</strong> ₹{data.price}</p>
         </Col>
       </Row>
     </Container>

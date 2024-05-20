@@ -5,7 +5,7 @@ const createToken = (_id) => {
   return jwt.sign({_id}, process.env.SECRET, { expiresIn: '3d' })
 }
 
-// login a user
+
 const loginUser = async (req, res) => {
   
   const {email, password} = req.body
@@ -29,7 +29,7 @@ const loginUser = async (req, res) => {
     const user = await User.login(email, password)
 
 
-    // create a token
+   
     const token = createToken(user._id)
     
 
@@ -44,8 +44,7 @@ const loginUser = async (req, res) => {
      
     
       
-      // res.status(200).json({email,k, token})
-
+      
       res.status(200).json({ email,fname:fname, _id: user._id, token });
     }
       
@@ -57,7 +56,7 @@ const loginUser = async (req, res) => {
   }
 }
 
-// signup a user
+
 const signupUser = async (req, res) => {
   const {fname,email, password} = req.body
 
@@ -65,7 +64,7 @@ const signupUser = async (req, res) => {
     const user = await User.signup(fname,email, password)
     console.log(user);
     console.log("done");
-    // create a token
+    
     const token = createToken(user._id)
     console.log(token);
     console.log("done1");

@@ -20,8 +20,8 @@ const bookSchema = new Schema({
     required:true
   },
   user_id: {
-    type: Schema.Types.ObjectId, // Reference to the User model's ObjectId
-    ref: 'User', // Referring to the 'User' model
+    type: Schema.Types.ObjectId, 
+    ref: 'User', 
     required: true
   }
 }, { timestamps: true })

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-
+import { Link , useNavigate } from 'react-router-dom'
 const Addbook = () => {
     const [title,settitle] = useState('')
     const [desc,setdesc] = useState('')
@@ -15,6 +15,7 @@ const Addbook = () => {
     const [editId, setEditId] = useState('');
     const [img,setimg] = useState('')
     const { user } = useAuthContext()
+    const navigate = useNavigate();
    console.log(userBooks);
    console.log(user);
 
@@ -48,7 +49,8 @@ const Addbook = () => {
 
 
     const handleSubmit = async (e) => {
-      // e.preventDefault();
+      
+      
 
       const formData = new FormData();
       formData.append('title', title);
@@ -60,39 +62,13 @@ const Addbook = () => {
       console.log(formData);
 
 
-     
-  
-      // try {
-      //   console.log('FormData:', formData)
-      //   const response = await fetch('/api/book', {
-      //     method: 'POST',
-      //     body: formData,
-      //     headers: {
-      //       'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-      //       // Authorization: `Bearer ${user.token}`,
-      //     },
-      //   });
-  
-      //   if (response.ok) {
-      //     // If book is successfully added, fetch user's updated book list
-      //     // fetchUserBooks();
-      //     settitle('');
-      //     setdesc('');
-      //     setprice('');
-      //     setimg('');
-      //   } else {
-      //     console.error('Failed to add book');
-      //   }
-      // } catch (error) {
-      //   console.error('Error adding book:', error);
-      // }
-
+    
       try {
         const response = await axios.post('/api/book', formData, {
-          // Headers can be set directly in the config object
+          
           headers: {
             'Content-Type': 'multipart/form-data',
-            // Authorization header if needed
+            
             'Authorization': `Bearer ${user.token}`
           }
         });
@@ -100,12 +76,13 @@ const Addbook = () => {
       
         if (response.status === 200) {
           console.log("done");
-          // If book is successfully added, fetch user's updated book list
-          // fetchUserBooks();
+         
           settitle('');
           setdesc('');
           setprice('');
           setimg('');
+          
+          
         } else {
           console.error('Failed to add book');
         }
@@ -126,12 +103,12 @@ const Addbook = () => {
               method: 'DELETE',
               headers: {
                   'Content-Type': 'application/json'
-                  // Authorization: `Bearer ${user.token}`,
+                  
               },
           });
 
           if (response.ok) {
-              fetchUserBooks(); // Refresh the book list after deleting a book
+              fetchUserBooks(); 
           } else {
               console.error('Failed to delete book');
           }
@@ -147,20 +124,20 @@ const Addbook = () => {
 
     let data
 
-    // Fetch the book details to populate the form for editing
+   
     try {
         const response = await fetch(`/api/book/one/${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-                // Authorization: `Bearer ${user.token}`,
+                
             },
         });
 
         if (response.ok) {
              data = await response.json();
              console.log(data.img);
-            // console.log(data.title);
+            
             console.log("here from add");
             console.log(data);
             settitle(data.title);
@@ -177,44 +154,19 @@ const Addbook = () => {
 };
   
   const handleUpdate = async () => {
-    // const book = { title, desc, price };
-
-    // try {
-    //     const response = await fetch(`/api/book/${editId}`, {
-    //         method: 'PATCH',
-    //         body: JSON.stringify(book),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //             // Authorization: `Bearer ${user.token}`,
-    //         },
-    //     });
-
-    //     if (response.ok) {
-    //       settitle('');
-    //       setdesc('');
-    //       setprice('');
-    //         setEditMode(false);
-    //         fetchUserBooks(); // Refresh the book list after updating the book
-    //     } else {
-    //         console.error('Failed to update book');
-    //     }
-    // } catch (error) {
-    //     console.error('Error updating book:', error);
-    // }
+   
 
     const formData = new FormData();
     formData.append('title', title);
     formData.append('desc', desc);
     formData.append('price', price);
-    formData.append('img', img); // Include the image file
+    formData.append('img', img); 
   
     try {
       const response = await fetch(`/api/book/${editId}`, {
         method: 'PATCH',
         body: formData,
-        // No need to set 'Content-Type' header as it will be set automatically
-        // 'Content-Type': 'multipart/form-data'
-        // Authorization: `Bearer ${user.token}`,
+       
       });
   
       if (response.ok) {
@@ -222,7 +174,7 @@ const Addbook = () => {
         setdesc('');
         setprice('');
         setEditMode(false);
-        fetchUserBooks(); // Refresh the book list after updating the book
+        fetchUserBooks(); 
       } else {
         console.error('Failed to update book');
       }
@@ -277,7 +229,7 @@ const Addbook = () => {
 
             <input 
               type="file"
-              // value={img}
+              
               onChange={(e) => setimg(e.target.files[0])}
               
           />
@@ -288,33 +240,10 @@ const Addbook = () => {
         </div>
         <br/>
       <div>
-          {/* {userBooks.map((book) => (
-              <div key={book._id}>
-                  <h2>{book.title}</h2>
-                  <p>Description: {book.desc}</p>
-                  <p>Price: ${book.price}</p>
-                  <button onClick={() => handleEdit(book._id)}>Edit</button>
-                  <button onClick={() => handleDelete(book._id)}>Delete</button>
-              </div>
-          ))} */}
+        
 
 
-          {/* {userBooks.map((book) => (
-    <Card key={book._id} style={{ width: '18rem', marginBottom: '20px' }}>
-        <Card.Img variant="top" src={book.imageUrl} alt={book.title} />
-        <Card.Body>
-            <Card.Title>{book.title}</Card.Title>
-            <Card.Text>
-                Description: {book.desc}
-            </Card.Text>
-            <Card.Text>
-                Price: ${book.price}
-            </Card.Text>
-            <Button variant="primary" onClick={() => handleEdit(book._id)}>Edit</Button>
-            <Button variant="danger" onClick={() => handleDelete(book._id)}>Delete</Button>
-        </Card.Body>
-    </Card>
-))} */}
+         
 
 <Row>
     {userBooks.map((book) => (
@@ -328,7 +257,7 @@ const Addbook = () => {
                         Description: {book.desc}
                     </Card.Text>
                     <Card.Text>
-                        Price: ${book.price}
+                        Price: ₹{book.price}
                     </Card.Text>
                     <div className="d-flex">
                     <Button variant="primary" className="me-2" onClick={() => handleEdit(book._id)}>Edit</Button>

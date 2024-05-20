@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from '../hooks/useAuthContext'
-import Ho from '../pages/Ho'
+import Ho from '../pages/Home'
 import About from '../pages/About'
 import Contact from '../pages/Contact'
 import { useState,useEffect } from "react"

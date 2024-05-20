@@ -2,16 +2,17 @@ import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// pages & components
-import Home from './pages/Home'
+
+import Deatails from './pages/Deatails'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar'
-import Ho from './pages/Ho'
+import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Footer from './pages/Footer';
 import Viewbook from './pages/Viewbook';
+import Pay from './pages/Pay';
 
 function App() {
   const { user } = useAuthContext()
@@ -26,11 +27,11 @@ function App() {
           <Routes>
             <Route 
               path="/" 
-              element={user ? <Home /> : <Navigate to="/login" />} 
+              element={user ? <Deatails /> : <Navigate to="/login" />} 
             />
             <Route 
               path="/home" 
-              element={<Ho />  } 
+              element={<Home />  } 
             />
             <Route 
               path="/aboutus" 
@@ -51,6 +52,11 @@ function App() {
              <Route 
               path="/viewbook" 
               element={<Viewbook/>} 
+            />
+
+<Route 
+              path="/pay" 
+              element={<Pay/>} 
             />
           </Routes>
         </div>
